@@ -1,0 +1,90 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Audio player</title>
+        <meta name="description" content="Audio player">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- STYLES -->
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <link rel="stylesheet" href="css/main.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+              crossorigin="anonymous">
+
+        <!-- LIB SCRIPTS -->
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.3/howler.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+                integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+                crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+                crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- MAIN CONTENT START -->
+        <div id="dim-container">
+            <div id="player-circle-container">
+                <div id="vertical-buttons">
+                    <button id="playlist-btn" class="nav-btn vertical-btn"
+                            data-toggle="tooltip" data-placement="top" title="Playlist">
+                        <img src="icons/playlist.svg" alt="playlist"/>
+                    </button>
+                    <div id="horizontal-buttons">
+                        <button id="prev-btn" class="nav-btn horizontal-btn"
+                                data-toggle="tooltip" data-placement="left" title="Previous">
+                            <img src="icons/prev.svg" alt="previous"/>
+                        </button>
+                        <div id="song-info-container">
+                            <div id="song-time">
+                                <div id="song-time-minutes"></div>
+                                <p>:</p>
+                                <div id="song-time-seconds"></div>
+                            </div>
+                            <div>
+                                <h4 id="song-title"></h4>
+                                <h6 id="song-author"></h6>
+                            </div>
+                        </div>
+                        <button id="next-btn" class="nav-btn btn-doubled horizontal-btn"
+                                data-toggle="tooltip" data-placement="right" title="Next">
+                            <img src="icons/next.svg" alt="next"/>
+                        </button>
+                    </div>
+                    <button id="toggle-play-btn" class="nav-btn vertical-btn"
+                            data-toggle="tooltip" data-placement="bottom" title="Play/Pause">
+                        <img src="icons/playpause.svg" alt="play/pause"/>
+                    </button>
+                </div>
+
+            </div>
+
+            <div id="playlist-container">
+                <hr id="playlist-top-line">
+                <button id="close-btn" class="nav-btn"
+                        data-toggle="tooltip" data-placement="top" title="Close">
+                    <img src="icons/close.svg" alt="close"/>
+                </button>
+                <div id="playlist-content"></div>
+            </div>
+
+        </div>
+
+        <!-- MAIN CONTENT END -->
+
+        <!-- MY SCRIPTS -->
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/data.js"></script>
+        <script src="js/Player.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>
