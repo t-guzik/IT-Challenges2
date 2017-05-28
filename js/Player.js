@@ -7,13 +7,12 @@ var Player = function (songs) {
     var currentSongIndex = 0;
     var defaultVolume = 0.5;
     var currentVolume = defaultVolume;
-    var currentSongPostitionInSeconds = -1;
+    var currentSongPositionInSeconds = -1;
     var currentSongPosition = {
         minutes : 0,
         seconds : -1
     };
     var songTimeInterval = null;
-
 
     /** Constants **/
     var VOLUME_CHANGE = 0.05;
@@ -94,7 +93,29 @@ var Player = function (songs) {
     $('#playlist-btn').click(showPlaylist);
     $('#close-btn').click(hidePlaylist);
 
-    $(window).bind('mousewheel', function(event) {
+    $( window ).resize(function() {
+        if(window.innerWidth > window.innerHeight){
+            $('#player-circle-container')
+                .css('margin-top', window.innerHeight/4)
+                .css('margin-bottom', window.innerHeight/4)
+                .css('width', window.innerHeight/2)
+                .css('height', window.innerHeight/2);
+            $('#circle-canvas').css('width', window.innerHeight/2).css('height', window.innerHeight/2);
+            $('#playlist-container').css('margin-top', window.innerHeight/4);
+            $('#song-info-container').css('width', (parseInt(window.innerHeight/2)-120) + 'px').css('height', (parseInt(window.innerHeight/2)-120) + 'px');
+        } else {
+            $('#player-circle-container')
+                .css('margin-top', window.innerWidth/4)
+                .css('margin-bottom', window.innerWidth/4)
+                .css('width', window.innerWidth/2)
+                .css('height', window.innerWidth/2);
+            $('#circle-canvas').css('width', window.innerWidth/2).css('height', window.innerWidth/2);
+            $('#playlist-container').css('margin-top', window.innerWidth/4);
+            $('#song-info-container').css('width', (parseInt(window.innerWidth/2)-120) + 'px').css('height', (parseInt(window.innerWidth/2)-120) + 'px');
+        }
+    });
+
+    $( window ).bind('mousewheel', function(event) {
         if (event.originalEvent.wheelDelta >= 0) {
             if(currentVolume < 1){
                 currentVolume += VOLUME_CHANGE;
@@ -116,24 +137,24 @@ var Player = function (songs) {
 
     function setCurrentSongTime() {
         currentSongPosition.seconds++;
-        currentSongPostitionInSeconds = currentSongPosition.minutes * 60 + currentSongPosition.seconds;
+        currentSongPositionInSeconds = currentSongPosition.minutes * 60 + currentSongPosition.seconds;
 
         /** Change border style during song **/
-        if(currentSongPostitionInSeconds > playlist[currentSongIndex].duration()/4){
+        if(currentSongPositionInSeconds > playlist[currentSongIndex].duration()/4){
             $('#player-circle-container').css('border-right', 'solid white 5px ');
         }
 
-        if(currentSongPostitionInSeconds > 2*playlist[currentSongIndex].duration()/4){
+        if(currentSongPositionInSeconds > 2*playlist[currentSongIndex].duration()/4){
             $('#player-circle-container').css('border-bottom', 'solid white 5px ');
         }
 
-        if(currentSongPostitionInSeconds > 3*playlist[currentSongIndex].duration()/4){
+        if(currentSongPositionInSeconds > 3*playlist[currentSongIndex].duration()/4){
             $('#player-circle-container').css('border-left', 'solid white 5px ');
         }
 
-        if(currentSongPostitionInSeconds >= playlist[currentSongIndex].duration()){
+        if(currentSongPositionInSeconds >= playlist[currentSongIndex].duration()){
             clearBorders();
-            currentSongPostitionInSeconds = -1;
+            currentSongPositionInSeconds = -1;
             currentSongPosition = {
                 minutes : 0,
                 seconds : 0
@@ -167,7 +188,7 @@ var Player = function (songs) {
 
     function clearCurrentSongTime() {
         clearInterval(songTimeInterval);
-        currentSongPostitionInSeconds = -1;
+        currentSongPositionInSeconds = -1;
         currentSongPosition = {
             minutes : 0,
             seconds : -1
@@ -183,7 +204,6 @@ var Player = function (songs) {
     }
 
     function setPlayerBackground() {
-        console.log('url(../' + songs[currentSongIndex].background + ') no-repeat');
         $('body').css('background-image', 'url(' + songs[currentSongIndex].background + ')');
     }
 
@@ -197,6 +217,26 @@ var Player = function (songs) {
         $('#player-circle-container').css('display', 'flex');
     }
 
+    /** DISPLAY INIT **/
     setPlayerBackground();
     setFullSongInfoOnDisplay();
+    if(window.innerWidth > window.innerHeight){
+        $('#player-circle-container')
+            .css('margin-top', window.innerHeight/4)
+            .css('margin-bottom', window.innerHeight/4)
+            .css('width', window.innerHeight/2)
+            .css('height', window.innerHeight/2);
+        $('#circle-canvas').css('width', window.innerHeight/2).css('height', window.innerHeight/2);
+        $('#playlist-container').css('margin-top', window.innerHeight/4);
+        $('#song-info-container').css('width', (parseInt(window.innerHeight/2)-120) + 'px').css('height', (parseInt(window.innerHeight/2)-120) + 'px');
+    } else {
+        $('#player-circle-container')
+            .css('margin-top', window.innerWidth/4)
+            .css('margin-bottom', window.innerWidth/4)
+            .css('width', window.innerWidth/2)
+            .css('height', window.innerWidth/2);
+        $('#circle-canvas').css('width', window.innerWidth/2).css('height', window.innerWidth/2);
+        $('#playlist-container').css('margin-top', window.innerWidth/4);
+        $('#song-info-container').css('width', (parseInt(window.innerWidth/2)-120) + 'px').css('height', (parseInt(window.innerWidth/2)-120) + 'px');
+    }
 };
